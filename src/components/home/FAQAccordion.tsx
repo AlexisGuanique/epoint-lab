@@ -3,40 +3,54 @@
 import { useState } from "react";
 import { homeContent } from "@/data/site";
 
+function FaqChevron({ open }: { open: boolean }) {
+  return (
+    <span className={`faq-section__icon ${open ? "faq-section__icon--open" : ""}`} aria-hidden>
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3 5.5L7 9.5L11 5.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
 export function FAQAccordion() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(
+    homeContent.faq.length - 1,
+  );
 
   return (
-    <section className="section-light">
-      <div className="section-padding mx-auto max-w-7xl">
-        <h2 className="text-center font-[family-name:var(--font-poppins)] text-2xl font-semibold uppercase tracking-wide text-primary md:text-3xl">
-          {homeContent.faqTitle}
-        </h2>
-        <div className="mt-10 space-y-3">
+    <section className="faq-section section-green">
+      <div className="section-padding faq-section__inner">
+        <h2 className="faq-section__title">{homeContent.faqTitle}</h2>
+        <div className="faq-section__panel">
           {homeContent.faq.map((item, index) => {
             const isOpen = openIndex === index;
             return (
-              <div
-                key={item.question}
-                className="overflow-hidden border-2 border-border bg-white shadow-sm"
-              >
+              <div key={item.question} className="faq-section__item">
                 <button
                   type="button"
-                  className="flex w-full min-h-[44px] items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-primary md:text-base"
+                  className="faq-section__trigger"
                   aria-expanded={isOpen}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                 >
-                  <span>{item.question}</span>
-                  <span
-                    className={`shrink-0 text-gold transition-transform ${isOpen ? "rotate-45" : ""}`}
-                    aria-hidden
-                  >
-                    +
-                  </span>
+                  <span className="faq-section__question">{item.question}</span>
+                  <FaqChevron open={isOpen} />
                 </button>
                 {isOpen && (
-                  <div className="border-t-2 border-border px-5 pb-5 pt-2 text-sm leading-relaxed text-[rgba(115,119,127,0.7)]">
-                    {item.answer}
+                  <div className="faq-section__answer">
+                    <p>{item.answer}</p>
                   </div>
                 )}
               </div>

@@ -12,32 +12,17 @@ import { NavLink } from "@/components/layout/NavLink";
 type HeaderProps = { locale: Locale };
 
 export function Header({ locale }: HeaderProps) {
-  const pathname = usePathname();
-  const homeHref = `/${locale}`;
-
-  if (pathname === homeHref || pathname === `${homeHref}/`) {
-    return null;
-  }
-
-  return <DefaultHeader locale={locale} pathname={pathname} />;
-}
-
-function DefaultHeader({
-  locale,
-  pathname,
-}: {
-  locale: Locale;
-  pathname: string;
-}) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const nav = getNav(locale);
   const scheduleHref = siteConfig.scheduleHref(locale);
+  const homeHref = `/${locale}`;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-white shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <header className="site-header relative z-50">
+      <div className="site-header__inner mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8">
         <Link
-          href={`/${locale}`}
+          href={homeHref}
           className="nav-logo-link transition-transform duration-300 hover:scale-[1.02]"
         >
           <BrandLogo priority />
@@ -50,7 +35,7 @@ function DefaultHeader({
               href={item.href}
               label={item.label}
               isActive={pathname === item.href}
-              variant="light"
+              variant="hero"
             />
           ))}
         </nav>
@@ -63,7 +48,7 @@ function DefaultHeader({
 
         <button
           type="button"
-          className="nav-menu-toggle inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-primary transition-all duration-300 hover:border-gold hover:bg-gold/10 hover:text-gold md:hidden"
+          className="nav-menu-toggle inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-gold text-brz-gold transition-all duration-300 hover:bg-gold/15 hover:scale-105 md:hidden"
           aria-expanded={open}
           aria-label="Toggle menu"
           onClick={() => setOpen(!open)}
@@ -81,7 +66,7 @@ function DefaultHeader({
       </div>
 
       {open && (
-        <div className="border-t border-border bg-gray-dark px-4 py-4 md:hidden">
+        <div className="site-header__mobile border-t border-white/15 px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => (
               <NavLink

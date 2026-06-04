@@ -1,34 +1,37 @@
+import Image from "next/image";
 import { homeContent } from "@/data/site";
 
 export function PartnerSection() {
   const { partner } = homeContent;
 
   return (
-    <section className="bg-white">
+    <section className="partner-section section-green">
       <div className="section-padding mx-auto max-w-7xl">
-        <h2 className="max-w-4xl text-2xl font-semibold leading-snug text-primary md:text-3xl lg:text-4xl">
-          {partner.heading}
-        </h2>
-        <p className="mt-8 text-lg font-semibold text-foreground">
-          {partner.listTitle}
-        </p>
-        <ul className="mt-4 space-y-2">
-          {partner.bullets.map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-3 text-[rgba(115,119,127,0.7)]"
-            >
-              <span className="mt-1 font-bold text-gold" aria-hidden>
-                •
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-8 text-xl font-bold text-gold">{partner.stat}</p>
-        <p className="mt-4 max-w-3xl leading-relaxed text-[rgba(115,119,127,0.7)]">
-          {partner.body}
-        </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="partner-section__image-frame relative aspect-[4/3] overflow-hidden rounded-[10px]">
+            <Image
+              src={partner.image.src}
+              alt={partner.image.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+          <div>
+            <h2 className="partner-section__heading">{partner.heading}</h2>
+            <p className="partner-section__list-title">{partner.listTitle}</p>
+            <ul className="partner-section__list">
+              {partner.bullets.map((item) => (
+                <li key={item} className="partner-section__list-item">
+                  <span className="partner-section__bullet" aria-hidden>
+                    •
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

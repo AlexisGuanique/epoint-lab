@@ -1,9 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { blogPosts } from "@/data/site";
+import { PageHero } from "@/components/shared/PageHero";
+import { blogContent } from "@/data/site";
+
+const blogPosts = blogContent.posts;
+import type { HeroContent } from "@/data/site";
+import type { Locale } from "@/lib/locales";
 
 type PageProps = { params: Promise<{ locale: string; slug: string }> };
+
+function heroFromPostTitle(title: string, fallback: string): HeroContent {
+  const text = title.trim() || fallback;
+  const words = text.split(" ");
+  if (words.length < 2) {
+    return { title: { white: text, gold: "" } };
+  }
+  const mid = Math.ceil(words.length / 2);
+  return {
+    title: {
+      white: `${words.slice(0, mid).join(" ")} `,
+      gold: words.slice(mid).join(" "),
+    },
+  };
+}
 
 export async function generateMetadata({
   params,
@@ -20,22 +40,38 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   return (
-    <article className="section-padding mx-auto max-w-3xl bg-white">
-      <Link
-        href={`/${locale}/blog`}
-        className="text-sm text-gold hover:underline"
-      >
-        ← Back to E-Blog
-      </Link>
-      <time className="mt-6 block text-sm text-muted">{post.date}</time>
-      <h1 className="mt-2 text-3xl font-bold">{post.title}</h1>
-      <p className="mt-6 leading-relaxed text-[rgba(115,119,127,0.7)]">
-        {post.excerpt}
-      </p>
-      <p className="mt-4 leading-relaxed text-[rgba(115,119,127,0.7)]">
-        Full article content would appear here. This rebuild includes sample
-        posts where the original blog was empty.
-      </p>
-    </article>
+    <>
+      <PageHero
+        locale={locale as Locale}
+        content={heroFromPostTitle(post.title, post.description ?? post.title)}
+      />
+
+      <article className="section-padding mx-auto max-w-3xl bg-white">
+        <Link
+          href={`/${locale}/blog`}
+          className="text-sm text-gold hover:underline"
+        >
+          ← Back to E-Blog
+        </Link>
+        <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-gold">
+          {post.status}
+        </p>
+        {post.title ? (
+          <h2 className="mt-4 text-2xl font-semibold text-primary">{post.title}</h2>
+        ) : null}
+        <div className="blog-card__media mt-8">
+          <img
+            src={post.image.src}
+            alt={post.image.alt}
+            className="blog-card__image w-full"
+          />
+        </div>
+        {post.description ? (
+          <p className="mt-6 text-lg leading-relaxed text-[rgba(115,119,127,0.85)]">
+            {post.description}
+          </p>
+        ) : null}
+      </article>
+    </>
   );
 }

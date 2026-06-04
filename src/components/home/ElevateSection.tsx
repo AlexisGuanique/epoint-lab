@@ -5,41 +5,32 @@ export function ElevateSection() {
   const { elevate } = homeContent;
 
   return (
-    <section className="section-light">
+    <section className="elevate-section section-light">
       <div className="section-padding mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="text-4xl font-semibold leading-tight text-primary md:text-5xl">
+            <h2 className="elevate-section__title">
               {elevate.titleLines.map((line) => (
                 <span key={line} className="block">
                   {line}
                 </span>
               ))}
             </h2>
-            <div className="mt-6 space-y-2 text-lg text-[rgba(115,119,127,0.7)]">
+            <div className="elevate-section__copy">
               {elevate.paragraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <p className="mt-4 text-lg font-semibold text-primary">
-              {elevate.closing}
-            </p>
+            <p className="elevate-section__closing">{elevate.closing}</p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {elevate.images.map((img) => (
-              <div
-                key={img.alt}
-                className="relative aspect-square overflow-hidden rounded-[10px] border-2 border-primary"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 25vw"
-                />
-              </div>
-            ))}
+          <div className="elevate-section__image-frame relative aspect-[4/3] overflow-hidden rounded-[10px]">
+            <Image
+              src={elevate.image.src}
+              alt={elevate.image.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
         </div>
       </div>
