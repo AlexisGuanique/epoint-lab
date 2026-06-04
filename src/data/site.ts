@@ -45,8 +45,14 @@ export const siteConfig = {
 
 export const homeContent = {
   hero: {
-    title: "Turn e-commerce sales into Your Best Business Engine",
-    eyebrow: "WE CREATE & IMPROVE YOUR E-COMMERCE BUSINESS",
+    title: {
+      white: "Turn e-commerce sales into Your ",
+      gold: "Best Business Engine",
+    },
+    eyebrow: {
+      white: "WE CREATE & IMPROVE ",
+      gold: "YOUR E-COMMERCE BUSINESS",
+    },
     subtitle:
       "Stop Managing & Start Growing With Our Turn Key Ecommerce Solution",
     description:

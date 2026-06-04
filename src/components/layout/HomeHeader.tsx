@@ -7,11 +7,9 @@ import type { Locale } from "@/lib/locales";
 import { getNav, siteConfig } from "@/data/site";
 import { AnimatedScheduleButton } from "@/components/shared/AnimatedScheduleButton";
 import { BrandLogo } from "@/components/shared/BrandLogo";
+import { NavLink } from "@/components/layout/NavLink";
 
 type HomeHeaderProps = { locale: Locale };
-
-const navLinkClass =
-  "font-[family-name:var(--font-lato)] text-sm font-medium text-brz-gold transition-all duration-300 hover:opacity-80 hover:tracking-wide";
 
 export function HomeHeader({ locale }: HomeHeaderProps) {
   const [open, setOpen] = useState(false);
@@ -21,25 +19,24 @@ export function HomeHeader({ locale }: HomeHeaderProps) {
   const homeHref = `/${locale}`;
 
   return (
-    <header className="relative z-50 border-b border-primary/80">
+    <header className="relative z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <Link href={homeHref} className="transition-opacity hover:opacity-90">
+        <Link
+          href={homeHref}
+          className="nav-logo-link transition-transform duration-300 hover:scale-[1.02]"
+        >
           <BrandLogo priority />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-2 md:flex" aria-label="Main">
           {nav.map((item) => (
-            <Link
+            <NavLink
               key={item.href}
               href={item.href}
-              className={`${navLinkClass} ${
-                pathname === item.href
-                  ? "font-semibold underline underline-offset-4 decoration-gold"
-                  : ""
-              }`}
-            >
-              {item.label}
-            </Link>
+              label={item.label}
+              isActive={pathname === item.href}
+              variant="hero"
+            />
           ))}
         </nav>
 
@@ -51,7 +48,7 @@ export function HomeHeader({ locale }: HomeHeaderProps) {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center border-2 border-gold text-brz-gold md:hidden"
+          className="nav-menu-toggle inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-gold text-brz-gold transition-all duration-300 hover:bg-gold/15 hover:scale-105 md:hidden"
           aria-expanded={open}
           aria-label="Toggle menu"
           onClick={() => setOpen(!open)}
@@ -70,18 +67,18 @@ export function HomeHeader({ locale }: HomeHeaderProps) {
 
       {open && (
         <div className="border-t border-primary/50 px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-3" aria-label="Mobile">
+          <nav className="flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => (
-              <Link
+              <NavLink
                 key={item.href}
                 href={item.href}
-                className={`py-2 ${navLinkClass}`}
+                label={item.label}
+                isActive={pathname === item.href}
+                variant="hero"
                 onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
+              />
             ))}
-            <AnimatedScheduleButton href={scheduleHref} className="mt-2 w-full">
+            <AnimatedScheduleButton href={scheduleHref} className="mt-3 w-full">
               Schedule a Call
             </AnimatedScheduleButton>
           </nav>

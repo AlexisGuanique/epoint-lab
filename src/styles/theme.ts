@@ -12,7 +12,7 @@ export const colors = {
   grayDark: "#333333",
   textMuted: "rgba(115, 119, 127, 0.7)",
   /** .brz-bg-color del hero/header (sección 7vrn4n) */
-  heroOverlay: "rgba(0, 49, 0, 0.69)",
+  heroOverlay: "rgba(0, 49, 0, 0.48)",
 } as const;
 
 export const fonts = {

@@ -1,26 +1,19 @@
-import Image from "next/image";
 import { images } from "@/styles/theme";
+
+const bgStyle = { backgroundImage: `url("${images.heroBg}")` };
 
 export function HeroAnimatedBackground() {
   return (
     <div className="hero-brz-bg__media" aria-hidden>
-      <div className="hero-brz-bg__image-wrap">
-        <Image
-          src={images.heroBg}
-          alt=""
-          fill
-          className="hero-brz-bg__image hero-brz-bg__image--animate"
-          priority
-          sizes="100vw"
-        />
+      <div className="hero-brz-bg__pan">
+        <div className="hero-brz-bg__layer" style={bgStyle} />
       </div>
 
-      <div className="hero-brz-bg__rings">
-        <span className="hero-ring hero-ring--outer" />
-        <span className="hero-ring hero-ring--mid" />
-        <span className="hero-ring hero-ring--inner" />
-        <span className="hero-ring hero-ring--accent" />
+      <div className="hero-brz-bg__mirror-pan">
+        <div className="hero-brz-bg__layer hero-brz-bg__layer--mirror" style={bgStyle} />
       </div>
+
+      <div className="hero-brz-bg__mirror-shine" />
 
       <div className="hero-brz-bg__color" />
     </div>
