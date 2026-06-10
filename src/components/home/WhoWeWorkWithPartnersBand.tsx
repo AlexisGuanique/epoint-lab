@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { homeContent } from "@/data/site";
+import { WhoWeWorkWithIllustration } from "@/components/home/WhoWeWorkWithIllustration";
 
 export function WhoWeWorkWithPartnersBand() {
   const { whoWeWorkWith } = homeContent;
@@ -37,23 +37,19 @@ export function WhoWeWorkWithPartnersBand() {
         <h2 id="partners-band-title" className="partners-band__title">
           {whoWeWorkWith.title}
         </h2>
-        <ul className="partners-band__logos">
-          {whoWeWorkWith.logos.map((logo, index) => (
+        <ul className="partners-band__segments">
+          {whoWeWorkWith.segments.map((segment, index) => (
             <li
-              key={logo.alt}
-              className="partners-band__logo-item"
-              style={{ "--logo-delay": `${0.15 + index * 0.2}s` } as CSSProperties}
+              key={segment.label}
+              className="partners-band__segment"
+              style={{ "--segment-delay": `${0.15 + index * 0.15}s` } as CSSProperties}
             >
-              <div className="partners-band__logo-wrap">
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  className="partners-band__logo"
-                  sizes="(max-width: 768px) 42vw, 320px"
-                  priority
+              <div className="partners-band__segment-card">
+                <WhoWeWorkWithIllustration
+                  variant={segment.illustration}
+                  className="partners-band__illustration"
                 />
+                <span className="partners-band__segment-label">{segment.label}</span>
               </div>
             </li>
           ))}

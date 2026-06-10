@@ -510,60 +510,88 @@ h6 {
   transform: translateY(28px);
 }
 
-.partners-band__logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(2.5rem, 8vw, 6rem);
+.partners-band__segments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 4vw, 2.5rem);
   margin: clamp(2rem, 5vw, 3.5rem) 0 0;
   padding: 0;
   list-style: none;
+  width: 100%;
+  max-width: 56rem;
 }
 
-.partners-band__logo-item {
+@media (min-width: 768px) {
+  .partners-band__segments {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.partners-band__segment {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   opacity: 0;
   transform: translateY(24px) scale(0.94);
 }
 
-.partners-band--visible .partners-band__logo-item {
-  animation: partners-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--logo-delay, 0.2s)
+.partners-band--visible .partners-band__segment {
+  animation: partners-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--segment-delay, 0.2s)
     forwards;
 }
 
-.partners-band__logo-wrap {
+.partners-band__segment-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  gap: 0.75rem;
+  width: 100%;
+  padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(170, 151, 70, 0.25);
   transition:
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.35s ease;
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
   animation: partners-float 5s ease-in-out infinite;
-  animation-delay: var(--logo-delay, 0.2s);
+  animation-delay: var(--segment-delay, 0.2s);
 }
 
-.partners-band--visible .partners-band__logo-item:nth-child(2) .partners-band__logo-wrap {
-  animation-delay: calc(var(--logo-delay, 0.2s) + 0.8s);
+.partners-band--visible .partners-band__segment:nth-child(2) .partners-band__segment-card {
+  animation-delay: calc(var(--segment-delay, 0.2s) + 0.8s);
 }
 
-.partners-band__logo-wrap:hover {
-  transform: scale(1.1) translateY(-10px);
-  filter: drop-shadow(0 12px 28px rgba(170, 151, 70, 0.45));
+.partners-band--visible .partners-band__segment:nth-child(3) .partners-band__segment-card {
+  animation-delay: calc(var(--segment-delay, 0.2s) + 1.2s);
+}
+
+.partners-band--visible .partners-band__segment:nth-child(4) .partners-band__segment-card {
+  animation-delay: calc(var(--segment-delay, 0.2s) + 1.6s);
+}
+
+.partners-band__segment-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(170, 151, 70, 0.55);
+  box-shadow: 0 12px 28px rgba(170, 151, 70, 0.25);
   animation-play-state: paused;
 }
 
-.partners-band__logo {
+.partners-band__illustration {
   display: block;
-  width: auto;
-  height: clamp(3.25rem, 7vw, 5.5rem);
-  max-width: min(360px, 46vw);
-  object-fit: contain;
-  border-radius: 0.75rem;
+  width: 100%;
+  max-width: 10rem;
+  height: auto;
+}
+
+.partners-band__segment-label {
+  font-size: clamp(0.8125rem, 2vw, 0.9375rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--brz-white);
 }
 
 @keyframes partners-reveal {
@@ -631,13 +659,22 @@ h6 {
 }
 
 .who-we-work-detail__image-frame {
+  overflow: hidden;
+  border-radius: 10px;
   border: 8px solid var(--brz-gold);
+  aspect-ratio: 4 / 3;
 }
 
 @media (min-width: 768px) {
   .who-we-work-detail__image-frame {
     border-width: 10px;
   }
+}
+
+.who-we-work-detail__illustration {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* About — hero (tagline + stat circles inside animated hero) */
@@ -1881,20 +1918,20 @@ h6 {
 
 @media (prefers-reduced-motion: reduce) {
   .partners-band__title,
-  .partners-band__logo-item {
+  .partners-band__segment {
     opacity: 1;
     transform: none;
   }
 
   .partners-band--visible .partners-band__title,
-  .partners-band--visible .partners-band__logo-item,
-  .partners-band__logo-wrap {
+  .partners-band--visible .partners-band__segment,
+  .partners-band__segment-card {
     animation: none !important;
   }
 
-  .partners-band__logo-wrap:hover {
+  .partners-band__segment-card:hover {
     transform: none;
-    filter: none;
+    box-shadow: none;
   }
 
   .results-carousel__track:not(.results-carousel__track--instant),

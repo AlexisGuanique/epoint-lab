@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { homeContent } from "@/data/site";
+import { WhoWeWorkWithIllustration } from "@/components/home/WhoWeWorkWithIllustration";
 
 export function WhoWeWorkWithSection() {
   const { whoWeWorkWith } = homeContent;
@@ -16,13 +16,14 @@ export function WhoWeWorkWithSection() {
               {whoWeWorkWith.body}
             </p>
           </div>
-          <div className="who-we-work-detail__image-frame relative aspect-[4/3] overflow-hidden rounded-[10px]">
-            <Image
-              src={whoWeWorkWith.image}
-              alt={whoWeWorkWith.imageAlt}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+          <div
+            className="who-we-work-detail__image-frame"
+            role="img"
+            aria-label={whoWeWorkWith.detailIllustrationAlt}
+          >
+            <WhoWeWorkWithIllustration
+              variant={whoWeWorkWith.detailIllustration}
+              className="who-we-work-detail__illustration"
             />
           </div>
         </div>

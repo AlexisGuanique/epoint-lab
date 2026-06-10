@@ -131,18 +131,22 @@ export const homeContent = {
   },
   whoWeWorkWith: {
     title: "WHO WE WORK WITH",
-    logos: [
+    segments: [
       {
-        src: "/images/partners/walmart.png",
-        alt: "Walmart",
-        width: 232,
-        height: 76,
+        illustration: "online-sellers" as const,
+        label: "Online Sellers",
       },
       {
-        src: "/images/partners/amazon.png",
-        alt: "Amazon",
-        width: 202,
-        height: 78,
+        illustration: "retail-brands" as const,
+        label: "Retail Brands",
+      },
+      {
+        illustration: "logistics" as const,
+        label: "Logistics Teams",
+      },
+      {
+        illustration: "scaling-businesses" as const,
+        label: "Scaling Businesses",
       },
     ],
     subtitle:
@@ -150,9 +154,9 @@ export const homeContent = {
     video: "/videos/operations-logistics.mp4",
     socialProof: "Join 250+ businesses already thriving with EpointLab",
     body: "It's time to take your e-commerce operations to the next level and unlock untapped profitability. Whether you're looking to scale, streamline, or stay ahead of the competition, our team of experts is here to guide you every step of the way.",
-    image:
-      "https://cloud-1de12d.becdn.net/media/original/_name_8YG31Xn4dSw_03361f82-9f8e-413f-a2fe-05e59d239498/man-using-smartphone-on-chair.jpg",
-    imageAlt: "man using smartphone on chair",
+    detailIllustration: "growth-ecosystem" as const,
+    detailIllustrationAlt:
+      "Illustration of connected e-commerce sellers, retail brands, and logistics teams",
   },
   elevate: {
     titleLines: ["Elevate Your", "E-Commerce", "Success Today"],
